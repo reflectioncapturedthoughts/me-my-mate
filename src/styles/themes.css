@@ -1,0 +1,565 @@
+/* ============================================================
+   MeMyMate — Theme system v2 (premium)
+   8 themes × (light | dark). Brand: ARCT — black canvas with a
+   teal → indigo → violet gradient. Variables consumed by
+   global.css. <html data-theme="…" data-mode="…">
+   ============================================================ */
+
+:root {
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 13px;
+  --radius-sm: 9px;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Sora", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+  --nav-h: 66px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition: 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.08), 0 18px 44px rgba(0, 0, 0, 0.16);
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* ============ 1. ARCT — the brand: black canvas, teal→violet ============ */
+[data-theme="arct"] {
+  --bg: #f6f7fb;
+  --bg2: #eceef6;
+  --bg-grad:
+    radial-gradient(900px 480px at 88% -12%, rgba(74, 200, 192, 0.14) 0%, transparent 62%),
+    radial-gradient(800px 460px at 6% 108%, rgba(176, 106, 232, 0.12) 0%, transparent 60%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #ffffff;
+  --surface2: #f1f2f8;
+  --surface3: #e7e9f2;
+  --glass: rgba(255, 255, 255, 0.72);
+  --text: #101322;
+  --muted: #5d6478;
+  --faint: #8b91a5;
+  --primary: #4338ca;
+  --primary-hover: #3730a3;
+  --primary-text: #ffffff;
+  --accent: #0d9488;
+  --accent2: #7c3aed;
+  --accent-text: #ffffff;
+  --grad: linear-gradient(96deg, #0ea5a5 0%, #4f46e5 52%, #9333ea 100%);
+  --grad-soft: linear-gradient(96deg, rgba(14, 165, 165, 0.14), rgba(147, 51, 234, 0.14));
+  --border: rgba(16, 19, 34, 0.09);
+  --border-strong: rgba(16, 19, 34, 0.16);
+  --success: #059669;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --ring: rgba(79, 70, 229, 0.28);
+  --glow: 0 8px 28px rgba(79, 70, 229, 0.28);
+  --card-face: linear-gradient(168deg, #ffffff 0%, #f4f5fb 100%);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --logo-tile: #060709;
+}
+[data-theme="arct"][data-mode="dark"] {
+  --bg: #060709;
+  --bg2: #0a0c12;
+  --bg-grad:
+    radial-gradient(1000px 520px at 85% -14%, rgba(45, 212, 191, 0.1) 0%, transparent 60%),
+    radial-gradient(900px 500px at 8% 110%, rgba(168, 85, 247, 0.12) 0%, transparent 62%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #101319;
+  --surface2: #171b24;
+  --surface3: #1f2430;
+  --glass: rgba(13, 15, 20, 0.66);
+  --text: #eef1f8;
+  --muted: #9aa3b8;
+  --faint: #6b7386;
+  --primary: #818cf8;
+  --primary-hover: #a5b0fc;
+  --primary-text: #0b0d1a;
+  --accent: #2dd4bf;
+  --accent2: #c084fc;
+  --accent-text: #062020;
+  --grad: linear-gradient(96deg, #2dd4bf 0%, #818cf8 50%, #c084fc 100%);
+  --grad-soft: linear-gradient(96deg, rgba(45, 212, 191, 0.16), rgba(192, 132, 252, 0.16));
+  --border: rgba(238, 241, 248, 0.08);
+  --border-strong: rgba(238, 241, 248, 0.16);
+  --success: #34d399;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --ring: rgba(129, 140, 248, 0.35);
+  --glow: 0 10px 34px rgba(45, 212, 191, 0.2);
+  --card-face: linear-gradient(168deg, #141821 0%, #0e1117 100%);
+  --nav-bg: rgba(6, 7, 9, 0.66);
+  --logo-tile: #060709;
+}
+
+/* ============ 2. Aurora — polar night, green-cyan-pink ============ */
+[data-theme="aurora"] {
+  --bg: #f2faf7;
+  --bg2: #e6f4f2;
+  --bg-grad:
+    radial-gradient(900px 480px at 80% -12%, rgba(16, 185, 129, 0.14) 0%, transparent 62%),
+    radial-gradient(800px 460px at 8% 108%, rgba(236, 72, 153, 0.1) 0%, transparent 60%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #ffffff;
+  --surface2: #eef7f4;
+  --surface3: #e2efeb;
+  --glass: rgba(255, 255, 255, 0.72);
+  --text: #0c1a16;
+  --muted: #557069;
+  --faint: #7fa098;
+  --primary: #047857;
+  --primary-hover: #065f46;
+  --primary-text: #ffffff;
+  --accent: #0891b2;
+  --accent2: #db2777;
+  --accent-text: #ffffff;
+  --grad: linear-gradient(96deg, #10b981 0%, #06b6d4 48%, #ec4899 100%);
+  --grad-soft: linear-gradient(96deg, rgba(16, 185, 129, 0.14), rgba(236, 72, 153, 0.12));
+  --border: rgba(12, 26, 22, 0.09);
+  --border-strong: rgba(12, 26, 22, 0.16);
+  --success: #059669;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --ring: rgba(4, 120, 87, 0.26);
+  --glow: 0 8px 28px rgba(16, 185, 129, 0.25);
+  --card-face: linear-gradient(168deg, #ffffff 0%, #f0f9f6 100%);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --logo-tile: #04110d;
+}
+[data-theme="aurora"][data-mode="dark"] {
+  --bg: #04100c;
+  --bg2: #071a14;
+  --bg-grad:
+    radial-gradient(1000px 520px at 82% -14%, rgba(52, 211, 153, 0.13) 0%, transparent 60%),
+    radial-gradient(900px 500px at 10% 110%, rgba(244, 114, 182, 0.1) 0%, transparent 62%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #0b1a15;
+  --surface2: #10241d;
+  --surface3: #163027;
+  --glass: rgba(5, 17, 13, 0.66);
+  --text: #e7f6ef;
+  --muted: #93b5aa;
+  --faint: #62857b;
+  --primary: #34d399;
+  --primary-hover: #6ee7b7;
+  --primary-text: #04150e;
+  --accent: #22d3ee;
+  --accent2: #f472b6;
+  --accent-text: #062a20;
+  --grad: linear-gradient(96deg, #34d399 0%, #22d3ee 48%, #f472b6 100%);
+  --grad-soft: linear-gradient(96deg, rgba(52, 211, 153, 0.16), rgba(244, 114, 182, 0.14));
+  --border: rgba(231, 246, 239, 0.09);
+  --border-strong: rgba(231, 246, 239, 0.17);
+  --success: #34d399;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --ring: rgba(52, 211, 153, 0.32);
+  --glow: 0 10px 34px rgba(52, 211, 153, 0.22);
+  --card-face: linear-gradient(168deg, #0e211a 0%, #0a1813 100%);
+  --nav-bg: rgba(4, 16, 12, 0.66);
+  --logo-tile: #04110d;
+}
+
+/* ============ 3. Midnight — indigo/violet depth ============ */
+[data-theme="midnight"] {
+  --bg: #f4f3fc;
+  --bg2: #e9e7f9;
+  --bg-grad:
+    radial-gradient(900px 480px at 85% -12%, rgba(124, 58, 237, 0.12) 0%, transparent 62%),
+    radial-gradient(800px 460px at 8% 108%, rgba(59, 130, 246, 0.1) 0%, transparent 60%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #ffffff;
+  --surface2: #f1effc;
+  --surface3: #e6e3f8;
+  --glass: rgba(255, 255, 255, 0.72);
+  --text: #151228;
+  --muted: #5f5a7d;
+  --faint: #8c87ab;
+  --primary: #6d28d9;
+  --primary-hover: #5b21b6;
+  --primary-text: #ffffff;
+  --accent: #4f46e5;
+  --accent2: #d946ef;
+  --accent-text: #ffffff;
+  --grad: linear-gradient(96deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+  --grad-soft: linear-gradient(96deg, rgba(99, 102, 241, 0.14), rgba(217, 70, 239, 0.13));
+  --border: rgba(21, 18, 40, 0.09);
+  --border-strong: rgba(21, 18, 40, 0.16);
+  --success: #059669;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --ring: rgba(109, 40, 217, 0.26);
+  --glow: 0 8px 28px rgba(139, 92, 246, 0.28);
+  --card-face: linear-gradient(168deg, #ffffff 0%, #f4f2fd 100%);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --logo-tile: #0d0a1e;
+}
+[data-theme="midnight"][data-mode="dark"] {
+  --bg: #0a0817;
+  --bg2: #100c22;
+  --bg-grad:
+    radial-gradient(1000px 520px at 85% -14%, rgba(139, 92, 246, 0.14) 0%, transparent 60%),
+    radial-gradient(900px 500px at 8% 110%, rgba(217, 70, 239, 0.1) 0%, transparent 62%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #151129;
+  --surface2: #1d1736;
+  --surface3: #261e45;
+  --glass: rgba(12, 9, 26, 0.66);
+  --text: #efeafd;
+  --muted: #a79fc7;
+  --faint: #746c99;
+  --primary: #a78bfa;
+  --primary-hover: #c4b0fc;
+  --primary-text: #150e2e;
+  --accent: #818cf8;
+  --accent2: #e879f9;
+  --accent-text: #1e1040;
+  --grad: linear-gradient(96deg, #818cf8 0%, #a78bfa 50%, #e879f9 100%);
+  --grad-soft: linear-gradient(96deg, rgba(129, 140, 248, 0.16), rgba(232, 121, 249, 0.14));
+  --border: rgba(239, 234, 253, 0.09);
+  --border-strong: rgba(239, 234, 253, 0.17);
+  --success: #34d399;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --ring: rgba(167, 139, 250, 0.34);
+  --glow: 0 10px 34px rgba(167, 139, 250, 0.24);
+  --card-face: linear-gradient(168deg, #1a1433 0%, #130e26 100%);
+  --nav-bg: rgba(10, 8, 23, 0.66);
+  --logo-tile: #0d0a1e;
+}
+
+/* ============ 4. Ocean — deep sea cyan ============ */
+[data-theme="ocean"] {
+  --bg: #f0f8fc;
+  --bg2: #e3f1f8;
+  --bg-grad:
+    radial-gradient(900px 480px at 85% -12%, rgba(6, 182, 212, 0.14) 0%, transparent 62%),
+    radial-gradient(800px 460px at 8% 108%, rgba(37, 99, 235, 0.1) 0%, transparent 60%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #ffffff;
+  --surface2: #edf6fb;
+  --surface3: #e0eef6;
+  --glass: rgba(255, 255, 255, 0.72);
+  --text: #0a1a24;
+  --muted: #4f6b7c;
+  --faint: #7c99a9;
+  --primary: #0e7490;
+  --primary-hover: #155e75;
+  --primary-text: #ffffff;
+  --accent: #0284c7;
+  --accent2: #0d9488;
+  --accent-text: #ffffff;
+  --grad: linear-gradient(96deg, #06b6d4 0%, #0ea5e9 50%, #2563eb 100%);
+  --grad-soft: linear-gradient(96deg, rgba(6, 182, 212, 0.14), rgba(37, 99, 235, 0.12));
+  --border: rgba(10, 26, 36, 0.09);
+  --border-strong: rgba(10, 26, 36, 0.16);
+  --success: #059669;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --ring: rgba(14, 116, 144, 0.26);
+  --glow: 0 8px 28px rgba(6, 182, 212, 0.26);
+  --card-face: linear-gradient(168deg, #ffffff 0%, #f0f8fc 100%);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --logo-tile: #04141c;
+}
+[data-theme="ocean"][data-mode="dark"] {
+  --bg: #04121b;
+  --bg2: #071b28;
+  --bg-grad:
+    radial-gradient(1000px 520px at 85% -14%, rgba(34, 211, 238, 0.12) 0%, transparent 60%),
+    radial-gradient(900px 500px at 8% 110%, rgba(59, 130, 246, 0.12) 0%, transparent 62%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #0b202c;
+  --surface2: #102b3a;
+  --surface3: #16384a;
+  --glass: rgba(5, 19, 28, 0.66);
+  --text: #e4f4fb;
+  --muted: #92b4c4;
+  --faint: #5f8496;
+  --primary: #22d3ee;
+  --primary-hover: #67e3f4;
+  --primary-text: #052733;
+  --accent: #38bdf8;
+  --accent2: #2dd4bf;
+  --accent-text: #052e33;
+  --grad: linear-gradient(96deg, #22d3ee 0%, #38bdf8 50%, #60a5fa 100%);
+  --grad-soft: linear-gradient(96deg, rgba(34, 211, 238, 0.16), rgba(96, 165, 250, 0.14));
+  --border: rgba(228, 244, 251, 0.09);
+  --border-strong: rgba(228, 244, 251, 0.17);
+  --success: #34d399;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --ring: rgba(34, 211, 238, 0.32);
+  --glow: 0 10px 34px rgba(34, 211, 238, 0.2);
+  --card-face: linear-gradient(168deg, #0e2836 0%, #0a1e29 100%);
+  --nav-bg: rgba(4, 18, 27, 0.66);
+  --logo-tile: #04141c;
+}
+
+/* ============ 5. Forest — mossy calm ============ */
+[data-theme="forest"] {
+  --bg: #f2f8f0;
+  --bg2: #e6f1e2;
+  --bg-grad:
+    radial-gradient(900px 480px at 85% -12%, rgba(101, 163, 13, 0.13) 0%, transparent 62%),
+    radial-gradient(800px 460px at 8% 108%, rgba(5, 150, 105, 0.1) 0%, transparent 60%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #ffffff;
+  --surface2: #eff7ec;
+  --surface3: #e3efdf;
+  --glass: rgba(255, 255, 255, 0.72);
+  --text: #101c0e;
+  --muted: #55704f;
+  --faint: #82a07b;
+  --primary: #15803d;
+  --primary-hover: #166534;
+  --primary-text: #ffffff;
+  --accent: #65a30d;
+  --accent2: #0d9488;
+  --accent-text: #ffffff;
+  --grad: linear-gradient(96deg, #84cc16 0%, #22c55e 50%, #10b981 100%);
+  --grad-soft: linear-gradient(96deg, rgba(132, 204, 22, 0.14), rgba(16, 185, 129, 0.13));
+  --border: rgba(16, 28, 14, 0.09);
+  --border-strong: rgba(16, 28, 14, 0.16);
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warn: #ca8a04;
+  --ring: rgba(21, 128, 61, 0.26);
+  --glow: 0 8px 28px rgba(34, 197, 94, 0.24);
+  --card-face: linear-gradient(168deg, #ffffff 0%, #f2f9ef 100%);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --logo-tile: #0a1408;
+}
+[data-theme="forest"][data-mode="dark"] {
+  --bg: #070f07;
+  --bg2: #0b180b;
+  --bg-grad:
+    radial-gradient(1000px 520px at 85% -14%, rgba(132, 204, 22, 0.1) 0%, transparent 60%),
+    radial-gradient(900px 500px at 8% 110%, rgba(16, 185, 129, 0.12) 0%, transparent 62%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #101c10;
+  --surface2: #172717;
+  --surface3: #1f331f;
+  --glass: rgba(8, 16, 8, 0.66);
+  --text: #e9f5e6;
+  --muted: #a3bf9d;
+  --faint: #6f8f6a;
+  --primary: #4ade80;
+  --primary-hover: #86efac;
+  --primary-text: #07180b;
+  --accent: #a3e635;
+  --accent2: #34d399;
+  --accent-text: #132b06;
+  --grad: linear-gradient(96deg, #a3e635 0%, #4ade80 50%, #34d399 100%);
+  --grad-soft: linear-gradient(96deg, rgba(163, 230, 53, 0.15), rgba(52, 211, 153, 0.14));
+  --border: rgba(233, 245, 230, 0.09);
+  --border-strong: rgba(233, 245, 230, 0.17);
+  --success: #4ade80;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --ring: rgba(74, 222, 128, 0.3);
+  --glow: 0 10px 34px rgba(74, 222, 128, 0.2);
+  --card-face: linear-gradient(168deg, #142414 0%, #0e1a0e 100%);
+  --nav-bg: rgba(7, 15, 7, 0.66);
+  --logo-tile: #0a1408;
+}
+
+/* ============ 6. Sunset — ember & rose ============ */
+[data-theme="sunset"] {
+  --bg: #fdf5ef;
+  --bg2: #faeadd;
+  --bg-grad:
+    radial-gradient(900px 480px at 85% -12%, rgba(249, 115, 22, 0.13) 0%, transparent 62%),
+    radial-gradient(800px 460px at 8% 108%, rgba(225, 29, 72, 0.1) 0%, transparent 60%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #ffffff;
+  --surface2: #fbf1e9;
+  --surface3: #f5e6da;
+  --glass: rgba(255, 255, 255, 0.72);
+  --text: #221008;
+  --muted: #7c5a49;
+  --faint: #a98772;
+  --primary: #c2410c;
+  --primary-hover: #9a3412;
+  --primary-text: #ffffff;
+  --accent: #e11d48;
+  --accent2: #d97706;
+  --accent-text: #ffffff;
+  --grad: linear-gradient(96deg, #f59e0b 0%, #f97316 48%, #e11d48 100%);
+  --grad-soft: linear-gradient(96deg, rgba(245, 158, 11, 0.15), rgba(225, 29, 72, 0.12));
+  --border: rgba(34, 16, 8, 0.09);
+  --border-strong: rgba(34, 16, 8, 0.16);
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --ring: rgba(194, 65, 12, 0.26);
+  --glow: 0 8px 28px rgba(249, 115, 22, 0.26);
+  --card-face: linear-gradient(168deg, #ffffff 0%, #fdf4ec 100%);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --logo-tile: #1c0c05;
+}
+[data-theme="sunset"][data-mode="dark"] {
+  --bg: #150a06;
+  --bg2: #20100a;
+  --bg-grad:
+    radial-gradient(1000px 520px at 85% -14%, rgba(251, 146, 60, 0.13) 0%, transparent 60%),
+    radial-gradient(900px 500px at 8% 110%, rgba(244, 63, 94, 0.12) 0%, transparent 62%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #241209;
+  --surface2: #301a0e;
+  --surface3: #3d2213;
+  --glass: rgba(23, 11, 6, 0.66);
+  --text: #fbeeE4;
+  --muted: #cfa892;
+  --faint: #9c7a66;
+  --primary: #fb923c;
+  --primary-hover: #fdba74;
+  --primary-text: #2b1204;
+  --accent: #fb7185;
+  --accent2: #fbbf24;
+  --accent-text: #33130a;
+  --grad: linear-gradient(96deg, #fbbf24 0%, #fb923c 48%, #fb7185 100%);
+  --grad-soft: linear-gradient(96deg, rgba(251, 191, 36, 0.16), rgba(251, 113, 133, 0.14));
+  --border: rgba(251, 238, 228, 0.09);
+  --border-strong: rgba(251, 238, 228, 0.17);
+  --success: #4ade80;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --ring: rgba(251, 146, 60, 0.32);
+  --glow: 0 10px 34px rgba(251, 146, 60, 0.22);
+  --card-face: linear-gradient(168deg, #2b160b 0%, #201008 100%);
+  --nav-bg: rgba(21, 10, 6, 0.66);
+  --logo-tile: #1c0c05;
+}
+
+/* ============ 7. Candy — pop & playful ============ */
+[data-theme="candy"] {
+  --bg: #fdf1f8;
+  --bg2: #fae4f2;
+  --bg-grad:
+    radial-gradient(900px 480px at 85% -12%, rgba(236, 72, 153, 0.13) 0%, transparent 62%),
+    radial-gradient(800px 460px at 8% 108%, rgba(139, 92, 246, 0.11) 0%, transparent 60%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #ffffff;
+  --surface2: #fceef7;
+  --surface3: #f8e0f0;
+  --glass: rgba(255, 255, 255, 0.72);
+  --text: #25091c;
+  --muted: #7c4a68;
+  --faint: #a97b96;
+  --primary: #be185d;
+  --primary-hover: #9d174d;
+  --primary-text: #ffffff;
+  --accent: #7c3aed;
+  --accent2: #db2777;
+  --accent-text: #ffffff;
+  --grad: linear-gradient(96deg, #ec4899 0%, #a855f7 50%, #6366f1 100%);
+  --grad-soft: linear-gradient(96deg, rgba(236, 72, 153, 0.14), rgba(99, 102, 241, 0.12));
+  --border: rgba(37, 9, 28, 0.09);
+  --border-strong: rgba(37, 9, 28, 0.16);
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --ring: rgba(190, 24, 93, 0.26);
+  --glow: 0 8px 28px rgba(236, 72, 153, 0.26);
+  --card-face: linear-gradient(168deg, #ffffff 0%, #fdf0f8 100%);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --logo-tile: #1d0715;
+}
+[data-theme="candy"][data-mode="dark"] {
+  --bg: #170712;
+  --bg2: #210b1a;
+  --bg-grad:
+    radial-gradient(1000px 520px at 85% -14%, rgba(244, 114, 182, 0.13) 0%, transparent 60%),
+    radial-gradient(900px 500px at 8% 110%, rgba(167, 139, 250, 0.12) 0%, transparent 62%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #26101e;
+  --surface2: #331628;
+  --surface3: #411d34;
+  --glass: rgba(25, 8, 19, 0.66);
+  --text: #fdeaf4;
+  --muted: #d3a3bd;
+  --faint: #a1738d;
+  --primary: #f472b6;
+  --primary-hover: #f9a1d0;
+  --primary-text: #33091f;
+  --accent: #c084fc;
+  --accent2: #fb7185;
+  --accent-text: #360a26;
+  --grad: linear-gradient(96deg, #f472b6 0%, #c084fc 50%, #818cf8 100%);
+  --grad-soft: linear-gradient(96deg, rgba(244, 114, 182, 0.16), rgba(129, 140, 248, 0.14));
+  --border: rgba(253, 234, 244, 0.09);
+  --border-strong: rgba(253, 234, 244, 0.17);
+  --success: #4ade80;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --ring: rgba(244, 114, 182, 0.32);
+  --glow: 0 10px 34px rgba(244, 114, 182, 0.22);
+  --card-face: linear-gradient(168deg, #2d1324 0%, #220d1a 100%);
+  --nav-bg: rgba(23, 7, 18, 0.66);
+  --logo-tile: #1d0715;
+}
+
+/* ============ 8. Mono — graphite minimal, single spark ============ */
+[data-theme="mono"] {
+  --bg: #f7f7f8;
+  --bg2: #ededf0;
+  --bg-grad:
+    radial-gradient(900px 480px at 85% -12%, rgba(17, 17, 19, 0.05) 0%, transparent 62%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #ffffff;
+  --surface2: #f2f2f4;
+  --surface3: #e8e8ec;
+  --glass: rgba(255, 255, 255, 0.75);
+  --text: #111113;
+  --muted: #5c5c66;
+  --faint: #8a8a96;
+  --primary: #111113;
+  --primary-hover: #2b2b31;
+  --primary-text: #ffffff;
+  --accent: #3b82f6;
+  --accent2: #111113;
+  --accent-text: #ffffff;
+  --grad: linear-gradient(96deg, #3f3f46 0%, #18181b 55%, #3b82f6 130%);
+  --grad-soft: linear-gradient(96deg, rgba(24, 24, 27, 0.07), rgba(59, 130, 246, 0.09));
+  --border: rgba(17, 17, 19, 0.1);
+  --border-strong: rgba(17, 17, 19, 0.18);
+  --success: #16a34a;
+  --danger: #dc2626;
+  --warn: #d97706;
+  --ring: rgba(17, 17, 19, 0.2);
+  --glow: 0 8px 28px rgba(17, 17, 19, 0.18);
+  --card-face: linear-gradient(168deg, #ffffff 0%, #f5f5f7 100%);
+  --nav-bg: rgba(255, 255, 255, 0.75);
+  --logo-tile: #0b0b0d;
+}
+[data-theme="mono"][data-mode="dark"] {
+  --bg: #0b0b0d;
+  --bg2: #121215;
+  --bg-grad:
+    radial-gradient(1000px 520px at 85% -14%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  --surface: #161619;
+  --surface2: #1e1e22;
+  --surface3: #28282e;
+  --glass: rgba(12, 12, 14, 0.7);
+  --text: #f2f2f4;
+  --muted: #a1a1ab;
+  --faint: #6e6e78;
+  --primary: #e4e4e7;
+  --primary-hover: #ffffff;
+  --primary-text: #111113;
+  --accent: #60a5fa;
+  --accent2: #e4e4e7;
+  --accent-text: #0b1a2e;
+  --grad: linear-gradient(96deg, #a1a1aa 0%, #e4e4e7 55%, #60a5fa 130%);
+  --grad-soft: linear-gradient(96deg, rgba(228, 228, 231, 0.1), rgba(96, 165, 250, 0.12));
+  --border: rgba(242, 242, 244, 0.09);
+  --border-strong: rgba(242, 242, 244, 0.18);
+  --success: #4ade80;
+  --danger: #f87171;
+  --warn: #fbbf24;
+  --ring: rgba(228, 228, 231, 0.26);
+  --glow: 0 10px 34px rgba(255, 255, 255, 0.1);
+  --card-face: linear-gradient(168deg, #1a1a1f 0%, #131316 100%);
+  --nav-bg: rgba(11, 11, 13, 0.7);
+  --logo-tile: #0b0b0d;
+}

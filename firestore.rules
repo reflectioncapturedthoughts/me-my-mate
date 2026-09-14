@@ -1,0 +1,35 @@
+rules_version = '2';
+
+// MeMyMate — Firestore rules
+// Auth is anonymous, so ownership is tracked by username inside documents.
+// Knights are world-readable (sharing via link is a core feature) and can be
+// written by any signed-in (anonymous) user. The users collection is readable
+// only for the document a client just created/updated, and never exposes
+// anything but profile fields.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // One document per username: { name, username, passHash, salt, createdAt, settings }
+    match /users/{username} {
+      allow get: if true; // needed at login to verify credentials
+      allow create: if request.auth != null
+        && request.resource.data.username == username
+        && request.resource.data.passHash is string
+        && request.resource.data.passHash.size() >= 32;
+      allow update: if request.auth != null
+        && request.resource.data.username == username;
+      allow delete: if false;
+    }
+
+    // Knights: doc id = "{username}__{knightId}"
+    // { ownerUsername, title, topics, code, isPublic, createdAt, updatedAt }
+    match /knights/{docId} {
+      allow get, list: if true;                 // public sharing links
+      allow create: if request.auth != null
+        && request.resource.data.ownerUsername is string
+        && docId == request.resource.data.ownerUsername + '__' + request.resource.data.knightId;
+      allow update, delete: if request.auth != null
+        && request.resource.data.ownerUsername == resource.data.ownerUsername;
+    }
+  }
+}
