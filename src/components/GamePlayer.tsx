@@ -262,7 +262,7 @@ export default function GamePlayer({
                 onClick={(e) => { e.stopPropagation(); tap(); }}
                 aria-label="I said it — next card"
               >
-                <svg className="tap-ring" viewBox="0 0 160 160" width="100%" height="100%">
+                <svg className="tap-ring" viewBox="0 0 160 160" aria-hidden="true">
                   <circle className="track" cx="80" cy="80" r={RING_R} />
                   <circle
                     className={`bar ${urgent ? "urgent" : ""}`}

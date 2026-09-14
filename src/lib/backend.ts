@@ -52,15 +52,30 @@ const NETWORKISH = [
 function networkish(e: any): boolean {
   const code = e?.code ?? "";
   if (NETWORKISH.some((c) => String(code).includes(c))) return true;
+  if (String(code).includes("timeout")) return true;
   const msg = String(e?.message ?? "");
-  return /Failed to fetch|NetworkError|Load failed|offline|network/i.test(msg);
+  return /Failed to fetch|NetworkError|Load failed|offline|network|timed out/i.test(msg);
+}
+
+/** Cap any Firebase call: a hanging SDK must never hang the UI. */
+function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const t = setTimeout(
+      () => reject(Object.assign(new Error("Firebase request timed out"), { code: "firebase-timeout" })),
+      ms
+    );
+    p.then(
+      (v) => { clearTimeout(t); resolve(v); },
+      (e) => { clearTimeout(t); reject(e); }
+    );
+  });
 }
 
 /** Run the Firebase path; on network/config failure fall back to local. */
 async function fb<T>(firebaseFn: () => Promise<T>, localFn: () => T | Promise<T>): Promise<T> {
   if (backendMode !== "firebase" || backendState.firebaseDown) return localFn();
   try {
-    return await firebaseFn();
+    return await withTimeout(firebaseFn(), 9000);
   } catch (e: any) {
     if (networkish(e)) {
       reportFirebaseIssue(e?.code || e?.message || "network");

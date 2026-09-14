@@ -36,7 +36,7 @@ export default function SettingsPage() {
                 {user.name.charAt(0).toUpperCase()}
               </span>
               <div>
-                <b style={{ fontSize: 1.04rem }}>{user.name}</b>
+                <b style={{ fontSize: "1.04rem" }}>{user.name}</b>
                 <div className="small muted">
                   @{user.username} · joined {new Date(user.createdAt).toLocaleDateString()}
                 </div>

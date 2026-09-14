@@ -274,25 +274,32 @@ export function AppProvider({ children }: { children: ReactNode }) {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 
-/** Read a user record without a password (session restore), both modes. */
-async function loadUserRecord(username: string): Promise<User | null> {
-  if (backend.mode === "local") {
-    try {
-      const raw = localStorage.getItem("mmm_local_db_v1");
-      if (!raw) return null;
-      const db = JSON.parse(raw);
-      const acc = db.accounts?.[username.toLowerCase()];
-      if (!acc) return null;
-      return {
-        username: acc.username,
-        name: acc.name,
-        settings: acc.settings ?? defaultSettings(),
-        createdAt: acc.createdAt,
-      };
-    } catch {
-      return null;
-    }
+/** Read the locally-stored account record, if any (instant, offline-safe). */
+function readLocalAccount(username: string): User | null {
+  try {
+    const raw = localStorage.getItem("mmm_local_db_v1");
+    if (!raw) return null;
+    const db = JSON.parse(raw);
+    const acc = db.accounts?.[username.toLowerCase()];
+    if (!acc) return null;
+    return {
+      username: acc.username,
+      name: acc.name,
+      settings: acc.settings ?? defaultSettings(),
+      createdAt: acc.createdAt,
+    };
+  } catch {
+    return null;
   }
+}
+
+/** Read a user record without a password (session restore), both modes.
+ *  Local-first: a local record restores instantly; Firestore is only
+ *  consulted when there is nothing stored locally. */
+async function loadUserRecord(username: string): Promise<User | null> {
+  const local = readLocalAccount(username);
+  if (local) return local;
+  if (backend.mode === "local") return null;
   try {
     const { doc, getDoc } = await import("firebase/firestore");
     const { firebaseConfig } = await import("../firebaseConfig");
@@ -305,7 +312,12 @@ async function loadUserRecord(username: string): Promise<User | null> {
       try { await signInAnonymously(auth); } catch { /* continue anyway */ }
     }
     const db = getFirestore(app);
-    const snap = await getDoc(doc(db, "users", username.toLowerCase()));
+    const snap = await Promise.race([
+      getDoc(doc(db, "users", username.toLowerCase())),
+      new Promise<never>((_, rej) =>
+        setTimeout(() => rej(Object.assign(new Error("restore timed out"), { code: "restore-timeout" })), 9000)
+      ),
+    ]);
     if (!snap.exists()) return null;
     const d = snap.data() as { username: string; name: string; settings?: UserSettings; createdAt: number };
     return {

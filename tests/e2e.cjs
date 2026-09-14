@@ -82,11 +82,8 @@ async function clickText(page, selector, text) {
   );
   const el = handle.asElement();
   if (!el) throw new Error(`No element <${selector}> containing "${text}"`);
-  try {
-    await el.click();
-  } catch {
-    await el.evaluate((e) => e.click()); // fallback: JS click
-  }
+  // JS click: immune to sticky overlays (e.g. the sticky summary bar)
+  await el.evaluate((e) => e.click());
   return el;
 }
 
@@ -258,7 +255,7 @@ async function waitGone(page, selector, timeout = 8000) {
   await gotoPage(page, BASE + "/settings");
   await page.waitForSelector(".theme-grid", { timeout: 5000 });
   const themeBtns = await page.$$(".theme-option");
-  await clickHandle(page, themeBtns[5], "candy theme");
+  await clickHandle(page, themeBtns[6], "candy theme");
   await sleep(300);
   const modeBtns = await page.$$(".mode-toggle button");
   await clickHandle(page, modeBtns[1], "dark mode");

@@ -22,9 +22,9 @@ const emptyCard = (): PlayCard => ({
   autoSeconds: true,
 });
 
-const emptyTopic = (n: number): Topic => ({
+const emptyTopic = (): Topic => ({
   id: newId(),
-  name: `Topic ${n}`,
+  name: "",
   cards: [emptyCard()],
 });
 
@@ -40,7 +40,7 @@ export default function CreatePage() {
 
   const [mode, setMode] = useState<Mode>("form");
   const [title, setTitle] = useState("");
-  const [topics, setTopics] = useState<Topic[]>([emptyTopic(1)]);
+  const [topics, setTopics] = useState<Topic[]>([emptyTopic()]);
   const [code, setCode] = useState(KNIGHT_CODE_SAMPLE);
   const [saving, setSaving] = useState(false);
   const [aiOpen, setAiOpen] = useState(false);
@@ -436,7 +436,7 @@ function FormEditor({
           className="btn btn-primary"
           onClick={() => {
             sfx.click();
-            setTopics((ts) => [...ts, { id: newId(), name: `Topic ${ts.length + 1}`, cards: [emptyCard()] }]);
+            setTopics((ts) => [...ts, { id: newId(), name: "", cards: [emptyCard()] }]);
           }}
         >
           <IcPlus size={15} /> Add topic

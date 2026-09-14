@@ -1133,7 +1133,15 @@ button { font-family: var(--font-body); }
   50% { transform: scale(1.055); }
 }
 
-.tap-ring { position: absolute; inset: -14px; pointer-events: none; transform: rotate(-90deg); }
+.tap-ring {
+  position: absolute;
+  left: -14px;
+  top: -14px;
+  width: calc(100% + 28px);
+  height: calc(100% + 28px);
+  pointer-events: none;
+  transform: rotate(-90deg);
+}
 .tap-ring circle { fill: none; stroke-width: 6; stroke-linecap: round; }
 .tap-ring .track { stroke: var(--surface3); }
 .tap-ring .bar { stroke: var(--accent); transition: stroke-dashoffset 100ms linear, stroke 300ms; }
